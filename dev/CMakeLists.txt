@@ -94,11 +94,8 @@ IF (RESTINIO_MASTER_PROJECT)
 		ENDIF ()
 
 		# HTTP parser
-		IF (RESTINIO_USE_EXTERNAL_HTTP_PARSER)
-			find_package(http-parser REQUIRED)
-		ELSE ()
-			find_package(unofficial-http-parser CONFIG REQUIRED)
-		ENDIF ()
+		find_path(http-parser_INCLUDE http_parser.h)
+		find_library(http-parser_LIBRARY http_parser)
 
 		# fmtlib
 		find_package(fmt REQUIRED)
@@ -108,11 +105,7 @@ IF (RESTINIO_MASTER_PROJECT)
 		include_directories("${CMAKE_SOURCE_DIR}/clara")
 
 		# HTTP parser
-		IF (RESTINIO_USE_EXTERNAL_HTTP_PARSER)
-			find_package(http-parser REQUIRED)
-		ELSE ()
-			add_subdirectory(nodejs/http_parser)
-		ENDIF ()
+		add_subdirectory(nodejs/http_parser)
 
 		# fmtlib
 		add_subdirectory(fmt)
